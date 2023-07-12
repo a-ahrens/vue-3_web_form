@@ -12,6 +12,14 @@
       <option value="designer">Web Designer</option>
     </select>
 
+
+    <label>Skills</label>
+    <input type="text" v-model="tempSkill" @keyup.alt="addSkill">
+
+    <div v-for="skill in skills" :key="skill" class="pill">
+        {{ skill }}
+    </div>
+
     <!-- Two-way Data Binding a single checkbox to a boolean property -->
     <div class="terms">
         <input type="checkbox" required v-model="terms">
@@ -47,8 +55,23 @@ export default {
       role: 'designer',
       terms: false,
       names: [],
+      tempSkill: "",
+      skills: [],
     };
   },
+  
+  methods: {
+    addSkill(e) {
+        console.log(e);
+        //if the key pressed is a comma and the tempSkill property is not empty
+        if (e.key === ',' && this.tempSkill) {
+            if (!this.skills.includes(this.tempSkill)) {
+                this.skills.push(this.tempSkill);
+            }
+            this.tempSkill = '';
+        }
+    }
+  }
 };
 </script>
 
